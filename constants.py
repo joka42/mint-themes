@@ -90,3 +90,8 @@ y_hex_colors1["Teal"] = "#5aaa9a"
 y_hex_colors2["Teal"] = "#579c8e"
 y_hex_colors3["Teal"] = "#6dbbab"
 y_hex_colors4["Teal"] = "#4e8378"
+
+y_hex_colors1["Tela"] = "#ff0000"
+y_hex_colors2["Tela"] = "#ff0000"
+y_hex_colors3["Tela"] = "#ff0000"
+y_hex_colors4["Tela"] = "#ff0000"
