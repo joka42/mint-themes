@@ -90,7 +90,6 @@ for color in y_hex_colors1.keys():
         # Copy theme
         theme = "usr/share/themes/%s-%s" % (original_name, color)
         theme_index = os.path.join(theme, "index.theme")
-        print("cp -R usr/share/themes/%s %s" % (original_name, theme))
         os.system("cp -R usr/share/themes/%s %s" % (original_name, theme))
 
         # Theme name
