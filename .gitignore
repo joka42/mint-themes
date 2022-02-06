@@ -6,5 +6,6 @@ src/Mint-Y/cinnamon/sass-cache
 
 out/
 usr/
+venv/
 
 __pycache__/
