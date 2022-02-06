@@ -48,9 +48,9 @@ for i, color in enumerate(mint_colors):
     base_color = hex_to_bgr(y_hex_colors1.get(color))
 
     generated_colors = (base_color, 
-            shade(base_color, 0.95, 0.94), 
-            shade(base_color, 0.78, 1.0), 
-            shade(base_color, 1.0, 0.76))
+            shade(base_color, 0.94, 0.92), 
+            shade(base_color, 0.81, 1.03), 
+            shade(base_color, 0.89, 0.74))
 
     for j, generated_color in enumerate(generated_colors):
         image[i*2 + 1][j] = generated_color
