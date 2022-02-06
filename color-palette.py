@@ -19,46 +19,45 @@ def color_to_npArray(color):
     color_array[0][0] = color
     return color_array
 
-def shade(bgr_color, factor):
+def shade(bgr_color, saturate, shade):
     hsv = cv2.cvtColor(color_to_npArray(bgr_color), cv2.COLOR_BGR2HSV)
-    value = int(hsv[0][0][2] * factor)
-    if value > 255:
-        value = 255
-    hsv[0][0][2] = value
+    
+    saturation = int(hsv[0][0][1] * saturate)
+    if saturation > 255:
+        saturation = 255
+    hsv[0][0][1] = saturation
+
+    shading = int(hsv[0][0][2] * shade)
+    if shading > 255:
+        shading = 255
+    hsv[0][0][2] = shading
+    
     shaded_color_array = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     return tuple(shaded_color_array[0][0])
 
-def saturate(bgr_color, factor):
-    hsv = cv2.cvtColor(color_to_npArray(bgr_color), cv2.COLOR_BGR2HSV)
-    value = int(hsv[0][0][1] * factor)
-    if value > 255:
-        value = 255
-    hsv[0][0][1] = value
-    shaded_color_array = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-    return tuple(shaded_color_array[0][0])
+mint_colors = y_hex_colors1.keys()
 
-image = np.zeros((2, 4, 3), np.uint8)
+image = np.zeros((len(mint_colors) * 2, 4, 3), np.uint8)
 
-default_color = "Tela"
-base_color = hex_to_bgr(y_hex_colors1.get(default_color))
+for i, color in enumerate(mint_colors):
+    image[i*2][0] = hex_to_bgr(y_hex_colors1.get(color))
+    image[i*2][1] = hex_to_bgr(y_hex_colors2.get(color))
+    image[i*2][2] = hex_to_bgr(y_hex_colors3.get(color))
+    image[i*2][3] = hex_to_bgr(y_hex_colors4.get(color))
 
-image [1][0] = hex_to_bgr(y_hex_colors1.get(default_color))
-image [1][1] = hex_to_bgr(y_hex_colors2.get(default_color))
-image [1][2] = hex_to_bgr(y_hex_colors3.get(default_color))
-image [1][3] = hex_to_bgr(y_hex_colors4.get(default_color))
+    base_color = hex_to_bgr(y_hex_colors1.get(color))
 
+    generated_colors = (base_color, 
+            shade(base_color, 0.95, 0.94), 
+            shade(base_color, 0.78, 1.0), 
+            shade(base_color, 1.0, 0.76))
 
-colors = (base_color, 
-          saturate(shade(base_color, 0.94), 0.95), 
-          saturate(base_color, 0.78), 
-          shade(base_color, 0.76))
+    for j, generated_color in enumerate(generated_colors):
+        image[i*2 + 1][j] = generated_color
+        # print(i, bgr_to_hex(color))
 
-for i, color in enumerate(colors):
-    image[0][i] = color
-    print(i, bgr_to_hex(color))
-
-width = 400
-height = 200
+height = len(image) * 50
+width = len(image[0]) * 100
 
 image = cv2.resize(image, (width, height), interpolation = cv2.INTER_AREA)
 cv2.imwrite("out/palette.png", image)
