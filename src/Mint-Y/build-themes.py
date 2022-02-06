@@ -2,7 +2,8 @@
 
 import os
 
-VARIATIONS = ["Mint-Y", "Mint-Y-Dark"]
+VARIATIONS = ["Mint-Y",
+              "Mint-Y-Dark"]
 
 DEST = '../../usr/share/themes'
 
