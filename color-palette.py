@@ -61,4 +61,4 @@ width = 400
 height = 200
 
 image = cv2.resize(image, (width, height), interpolation = cv2.INTER_AREA)
-cv2.imwrite("palette.png", image)
+cv2.imwrite("out/palette.png", image)
